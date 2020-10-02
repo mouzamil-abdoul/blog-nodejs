@@ -1,20 +1,13 @@
 const expressLoader = require('./express');
 const ejsLoader = require('./ejs');
-const mongooseLoader = require('./mongoose')
+const mongooseLoader = require('./mongoose');
+const sessionLoader = require('./session');
+const passportLoader = require('./passport');
 
 module.exports = async function (app) {
-    expressLoader(app);
-    ejsLoader(app);
+    await sessionLoader(app);
+    await passportLoader(app);
+    await expressLoader(app);
+    await ejsLoader(app);
     await mongooseLoader();
-
-    app.get('/', function (req, res) {
-        res.render('index')
-
-    })
-
-    app.get('/post', function (req, res) {
-        res.render('show')
-
-    })
-
 }
